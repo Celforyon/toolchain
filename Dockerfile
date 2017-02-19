@@ -1,4 +1,4 @@
-FROM debian:jessie
+FROM debian:stretch
 MAINTAINER Alexis Pereda <alexis@pereda.fr>
 
 RUN dpkg --add-architecture i386
