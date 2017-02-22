@@ -25,4 +25,6 @@ sed -ri \
 	$debdir/DEBIAN/control
 echo>$debdir/DEBIAN/md5sums "$sums"
 
-dpkg-deb -b $debdir build/${CI_PROJECT_NAME}_${version}_${ARCH}.deb
+dest=$(mktemp -dp /shared)/$DIST
+mkdir $dest
+dpkg-deb -b $debdir $dest/${CI_PROJECT_NAME}_${version}_${ARCH}.deb
