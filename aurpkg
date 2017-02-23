@@ -28,7 +28,7 @@ echo>>PKGBUILD "pkgname=$CI_PROJECT_NAME"
 echo>>PKGBUILD "pkgver=$VERSION"
 echo>>PKGBUILD 'pkgrel=1'
 echo>>PKGBUILD 'pkgdesc="'$DESCRIPTION'"'
-echo>>PKGBUILD "arch=('i686', 'x86_64')"
+echo>>PKGBUILD "arch=('i686' 'x86_64')"
 echo>>PKGBUILD 'url=""'
 echo>>PKGBUILD "license=('GPL')"
 echo>>PKGBUILD 'depends=()'
@@ -42,7 +42,6 @@ echo>>PKGBUILD '  msg2 "Extracting the data.tar.xz"'
 echo>>PKGBUILD '  bsdtar -xf data.tar.xz -C "$pkgdir/"'
 echo>>PKGBUILD '}'
 
-cat PKGBUILD
 mksrcinfo
 
 git config user.email "$USER_EMAIL"
