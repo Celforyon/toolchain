@@ -1,6 +1,10 @@
 #!/bin/bash
 
-# Required environment variable: REPOSITORY_URL
+# Required environment variables:
+# - REPOSITORY_URL
+# - USER_NAME
+# - USER_EMAIL
+
 VERSION=$(grep 'Version: ' DEBIAN/control|cut -d' ' -f2)
 DESCRIPTION=$(grep 'Description: ' DEBIAN/control|cut -d' ' -f2-)
 
@@ -18,7 +22,7 @@ cd $tmp
 git clone ssh+git://aur@aur.archlinux.org/${CI_PROJECT_NAME}.git
 cd $CI_PROJECT_NAME
 echo> PKGBUILD
-echo>>PKGBUILD '# Maintainer Alexis Pereda <alexis@pereda.fr>'
+echo>>PKGBUILD "# Maintainer $USER_NAME <$USER_EMAIL>"
 echo>>PKGBUILD
 echo>>PKGBUILD "pkgname=$CI_PROJECT_NAME"
 echo>>PKGBUILD "pkgver=$VERSION"
@@ -38,8 +42,11 @@ echo>>PKGBUILD '  msg2 "Extracting the data.tar.xz"'
 echo>>PKGBUILD '  bsdtar -xf data.tar.xz -C "$pkgdir/"'
 echo>>PKGBUILD '}'
 
+cat PKGBUILD
 mksrcinfo
 
+git config user.email "$USER_EMAIL"
+git config user.name "$USER_NAME"
 git add -A
 git commit -m "[$VERSION]"
 git push
