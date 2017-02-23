@@ -8,8 +8,8 @@
 VERSION=$(grep 'Version: ' DEBIAN/control|cut -d' ' -f2)
 DESCRIPTION=$(grep 'Description: ' DEBIAN/control|cut -d' ' -f2-)
 
-i686_pkg=${CI_PROJECT_NAME}_$VERSION_arch_i386.deb
-amd64_pkg=${CI_PROJECT_NAME}_$VERSION_arch_amd64.deb
+i686_pkg=${CI_PROJECT_NAME}_${VERSION}_arch_i386.deb
+amd64_pkg=${CI_PROJECT_NAME}_${VERSION}_arch_amd64.deb
 
 i686_url=$REPOSITORY_URL/pool/main/${CI_PROJECT_NAME:0:1}/${CI_PROJECT_NAME}/$i686_pkg
 amd64_url=$REPOSITORY_URL/pool/main/${CI_PROJECT_NAME:0:1}/${CI_PROJECT_NAME}/$amd64_pkg
@@ -33,9 +33,9 @@ echo>>PKGBUILD 'url=""'
 echo>>PKGBUILD "license=('GPL')"
 echo>>PKGBUILD 'depends=()'
 echo>>PKGBUILD "source_i686=(\"$i686_url\")"
-echo>>PKGBUILD "md5sums_i686=($i686_md5)"
+echo>>PKGBUILD "md5sums_i686=('$i686_md5')"
 echo>>PKGBUILD "source_x86_64=(\"$amd64_url\")"
-echo>>PKGBUILD "md5sums_x86_64=($amd64_md5)"
+echo>>PKGBUILD "md5sums_x86_64=('$amd64_md5')"
 echo>>PKGBUILD
 echo>>PKGBUILD 'package() {'
 echo>>PKGBUILD '  msg2 "Extracting the data.tar.xz"'
