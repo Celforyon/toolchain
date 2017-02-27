@@ -5,7 +5,7 @@ ENV CATCH_URL "https://github.com/philsquared/Catch/releases/download/v1.7.2/cat
 
 RUN dpkg --add-architecture i386
 RUN apt-get update
-RUN apt-get install -y make cmake curl git
+RUN apt-get install -y make cmake qt4-qmake curl git
 RUN apt-get install -y gcc:i386 g++:i386
 RUN rm -rf /var/lib/apt/lists/*
 RUN curl>/usr/include/catch.hpp -L $CATCH_URL
