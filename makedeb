@@ -18,7 +18,25 @@ size=$(du -s $debdir|tr '\t' ' '|cut -d' ' -f1)
 sums=$(find $debdir -type f -exec md5sum {} \;)
 version=$(cat DEBIAN/control|grep "Version: "|cut -d' ' -f2)
 
-cp -rf DEBIAN $debdir
+DEBIAN_DIR=
+if [ -d "${DIST}/${ARCH}/DEBIAN" ]; then
+	DEBIAN_DIR="${DIST}/${ARCH}/DEBIAN"
+else
+	if [ -d "${DIST}/DEBIAN" ]; then
+		DEBIAN_DIR="${DIST}/DEBIAN"
+	else
+		if [ -d "DEBIAN" ]; then
+			DEBIAN_DIR="DEBIAN"
+		fi
+	fi
+fi
+
+if [ -z "$DEBIAN_DIR" ]; then
+	echo>&2 error: no DEBIAN directory
+	exit 2
+fi
+
+cp -rf $DEBIAN_DIR $debdir
 sed -ri \
 	-e "s/Architecture:.*/Architecture: $ARCH/" \
 	-e "s/Installed-Size:.*/Installed-Size: $size/" \
